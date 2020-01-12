@@ -3,35 +3,34 @@ const router = express.Router()
 const formidable = require('formidable')
 const fs = require('fs')
 const applicantService = require('./applicant.service')
+const axios = require('axios')
 
 module.exports = router;
 
 router.post('/authenticate', authenticate)
 router.post('/register', register)
+router.post('/process', process)
 
 function authenticate(req, res, next){
     applicantService.authenticate(req.body)
-        .then(applicant => applicant ? res.json(applicant) : res.status(400).json({message: 'Username or password is incorrect'}))
-        .catch(err => next(err))
+    .then(applicant => applicant ? res.json(applicant) : res.status(400).json({message: 'Username or password is incorrect'}))
+    .catch(err => next(err))
 }
 
 function register(req, res, next){
     applicantService.create(req.body)
-        .then(() => res.json({}))
-        .catch(err => next(err))
+    .then(() => res.json({}))
+    .catch(err => next(err))
 }
 
-/* POST receive resume. */
-router.post('/', function(req, res, next) {
-    new formidable.IncomingForm().parse(req, (err, fields, files) => {
-        if (err) {throw err}
-
-        let file = files.fileKey
-        
-        fs.readFile(file.path, 'utf-8', (err,data) => {
-            if(err) {throw err}
-
-            console.log(data)
-        })        
+function process(req,res,next){
+    axios.post('http://127.0.0.1:5000/process', req.body)
+    .then((res) => {
+        console.log(`statusCode: ${res.statusCode}`)
+        console.log(res)
     })
-})
+    .catch((error) => {
+        console.error(error)
+    })
+
+}
