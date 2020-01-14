@@ -9,12 +9,15 @@ router.post('/', function(req, res, next) {
         if (err) {throw err}
 
         let file = files.fileKey
-        
-        fs.readFile(file.path, 'utf-8', (err,data) => {
-            if(err) {throw err}
 
-            console.log(data)
-        })        
+        axios.post('http://127.0.0.1:5000/process', req.body)
+        .then((res) => {
+            console.log(`statusCode: ${res.statusCode}`)
+            console.log(res)
+        })
+        .catch((error) => {
+            console.error(error)
+        })   
     })
 });
 
