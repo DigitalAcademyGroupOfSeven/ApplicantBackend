@@ -10,6 +10,7 @@ module.exports = router;
 router.post('/authenticate', authenticate)
 router.post('/register', register)
 router.post('/process', process)
+router.put('/:id', update)
 
 function authenticate(req, res, next){
     applicantService.authenticate(req.body)
@@ -32,5 +33,10 @@ function process(req,res,next){
     .catch((error) => {
         console.error(error)
     })
+}
 
+function update(req, res, next) {
+    userService.update(req.params.id, req.body)
+        .then(() => res.json({}))
+        .catch(err => next(err));
 }
