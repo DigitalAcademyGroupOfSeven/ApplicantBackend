@@ -6,7 +6,10 @@ const schema = new Schema({
     hash: {type: String, required:true},
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
-    email: {type: String, required: true}
+    email: {type: String, required: true},
+    skills: [{type: String}],
+    mobile_number: {type: String},
+    experience: [{type: String}]
 })
 
 schema.set('toJSON', {virtuals: true})
