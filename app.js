@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var applicantRouter = require('./routes/applicant/applicant.controller');
 var resumeParserRouter = require('./routes/resumeParser');
+var orcidRouter = require('./routes/orcid');
 
 const cors = require('cors');
 
@@ -28,6 +29,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/applicant', applicantRouter);
 app.use('/resumeParser', resumeParserRouter);
+app.use('/orcid', orcidRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
