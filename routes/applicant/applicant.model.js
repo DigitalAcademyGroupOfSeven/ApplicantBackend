@@ -15,6 +15,7 @@ const schema = new Schema({
     degree: [{type: String}],
     designation: [{type: String}],
     total_experience: {type: String},
+    orcid: {type: String}
 
 })
 
