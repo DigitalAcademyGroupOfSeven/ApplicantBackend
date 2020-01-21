@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const axios = require('axios')
 const xml = require('xml')
+const config = require('../config')
 
 router.get('/:id', async function(req, res, next) {
     let orcid = req.params.id
@@ -11,7 +12,7 @@ router.get('/:id', async function(req, res, next) {
 
 async function getOrcidRecord(id){
     try{
-        const apiRequest = await axios.get('https://pub.orcid.org/v2.1/'+id+'/record', { 'headers': {'Authorization': 'Bearer ***REMOVED***'}})
+        const apiRequest = await axios.get('https://pub.orcid.org/v2.1/'+id+'/record', { 'headers': {'Authorization': `Bearer ${config.ORCID_TOKEN}`}})
         return apiRequest.data
     } catch(err){
         console.error(err)
